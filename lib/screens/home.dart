@@ -28,47 +28,40 @@ class _HomeScreenState extends State<HomeScreen> {
 
         body:  Stack(
           children:[ 
-  
             Positioned(
-              left: 192,
-                top: 202,
+              left: 167,
+                top: 190,
                 child: CustomPaint(
-              size: const Size(27, 27),
+              size: const Size(80, 80),
                painter: TrianglePainter(),
               ),
             ),
 
             Column(
             children: [
-          // Profile & Coins Section (Top)
-          Align(
-            alignment: Alignment.topRight,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Icon(Icons.notifications),
-
-              
-              ],
-            ),
-          ),
-                
-              
           // Unit 1 Title
           Container(
             margin: EdgeInsets.only(top: 16),
             padding: EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+           width: double.infinity,
+           height: 80,
             decoration: BoxDecoration(
-              color: Colors.teal,
+              color: Color.fromARGB(255,46,204,156),
               borderRadius: BorderRadius.circular(16),
+
             ),
-            child: Text("Unit 1",
-             style: TextStyle(fontSize: 20, 
-             fontWeight: FontWeight.bold, 
-             color: Colors.white)),
+            child: Center(
+              child: Text("Unit 1",
+               style: TextStyle(fontSize: 20, 
+               fontWeight: FontWeight.bold, 
+               color: Colors.white)),
+            ),
           ),
           SizedBox(height: 28,),
-            CircleAvatar(child: 
+            CircleAvatar(
+              minRadius: 25,
+              backgroundColor: Color.fromARGB(255,46,204,156),
+              child: 
             Icon(Icons.card_giftcard),
             ),
           // Main Card with Gift Icon using Stack
@@ -76,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
             margin: EdgeInsets.only(top: 40),
             padding: EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Colors.teal,
+              color: const Color.fromARGB(255,46,204,156),
               borderRadius: BorderRadius.circular(20),
             ),
             child: Column(
@@ -91,10 +84,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   runSpacing: 8,
                   children: [
                     // Custom buttons
-                    _questionTypeButton("Multiple Choice"),
-                    _questionTypeButton("True/False", isSelected: true),
-                    _questionTypeButton("Drag & Drop"),
-                    _questionTypeButton("Flash Card"),
+                    _questionTypeButton(Icon(Icons.menu),"Multiple Choice"),
+                    _questionTypeButton(Icon(Icons.check),"True/False", isSelected: true),
+                    _questionTypeButton(Icon(Icons.grid_on_rounded),"Drag & Drop"),
+                    _questionTypeButton(Icon(Icons.grid_on_outlined),"Flash Card"),
                   ],
                 ),
                 SizedBox(height: 16),
@@ -132,7 +125,7 @@ class TrianglePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color =  Colors.teal
+      ..color = Color.fromARGB(255,46,204,156)
       ..style = PaintingStyle.fill;
     final path = Path()
       ..moveTo(size.width / 2, 0) // Top center
@@ -148,20 +141,26 @@ class TrianglePainter extends CustomPainter {
 }
 
 
-Widget _questionTypeButton(String title, {bool isSelected = false}) {
+Widget _questionTypeButton(Icon icon, String title, {bool isSelected = false}) {
   return Container(
     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
     decoration: BoxDecoration(
-      color: isSelected ? Colors.teal.shade700 : Colors.white,
+      color: isSelected ? const Color.fromARGB(255, 15, 255, 227) : Colors.white,
       borderRadius: BorderRadius.circular(10),
       border: Border.all(color: Colors.teal),
     ),
-    child: Text(
-      title,
-      style: TextStyle(
-        color: isSelected ? Colors.white : Colors.teal,
-      ),
-    ),
+    child: Column(
+      children: [
+        IconButton(onPressed: () {
+          isSelected = true;
+        }, icon: icon ,style: IconButton.styleFrom(
+          hoverColor: Colors.greenAccent,
+          
+        ),
+        ),
+        Text(title)
+      ],
+    )
   );
-}
-
+ }
+// color: isSelected ? Colors.white : Colors.teal,
