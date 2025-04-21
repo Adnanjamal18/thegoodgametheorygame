@@ -1,0 +1,2 @@
+D:/Adnans Project/test_app/esp32test/android/app/.cxx/Debug/6b556j1j/arm64-v8a/CMakeFiles/edit_cache.dir
+D:/Adnans Project/test_app/esp32test/android/app/.cxx/Debug/6b556j1j/arm64-v8a/CMakeFiles/rebuild_cache.dir
