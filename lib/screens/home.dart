@@ -11,17 +11,18 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  @override
-  Widget build(BuildContext context) {
-    int coins = 518;
+  int coins = 518;
+     int selectedIndex = 1;
     final List<Map<String, dynamic>> questionTypes = [
   {'icon': Icons.menu, 'title': 'Multiple Choice'},
   {'icon': Icons.check, 'title': 'True/False'},
   {'icon': Icons.grid_on_rounded, 'title': 'Drag & Drop'},
   {'icon': Icons.grid_on_outlined, 'title': 'Flash Card'},
 ];
+  @override
+  Widget build(BuildContext context) {
+  
 
-int selectedIndex = 1; // Example default
 
     return SafeArea(
       child: Scaffold(
@@ -123,21 +124,15 @@ int selectedIndex = 1; // Example default
                   crossAxisSpacing: 8,
                   childAspectRatio: 2/2.6,       // tweak based on button size
                 ),
-                itemBuilder: (context, index) {
-                  final item = questionTypes[index];
-                  return _questionTypeButton(
-                    Icon(item['icon']),
-                    item['title'],
-                    isSelected: index == selectedIndex,
-                    // onTap: () {
-                    //   setState(() {
-                    //     selectedIndex = index;
-                    //   });
-                    // },
-                  );
-                },
+               itemBuilder: (context, index) {
+    final item = questionTypes[index];
+    return _questionTypeButton(
+      item['icon'],
+      item['title'],
+      index,
+    );
+  },
               ),
-            
                 SizedBox(height: 16),
                
               ],
@@ -204,6 +199,41 @@ int selectedIndex = 1; // Example default
     );
 
   }
+  Widget _questionTypeButton(IconData icon, String title, int index) {
+    bool isSelected = index == selectedIndex;
+    return InkWell(
+      onTap: () {
+        setState(() {
+          selectedIndex = index;
+        });
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+        decoration: BoxDecoration(
+          color: isSelected
+              ? const Color.fromARGB(255, 255, 255, 255)
+              : const Color.fromARGB(111, 41, 40, 40),
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: Colors.teal),
+        ),
+        child: Column(
+          children: [
+             Icon(icon,color:  isSelected
+              ? Color.fromARGB(255,46,204,156)
+              : const Color.fromARGB(255, 255, 255, 255),),
+            SizedBox(height: 8),
+            Text(
+              title,
+              style: TextStyle(color: isSelected
+              ? Color.fromARGB(255,46,204,156)
+              : const Color.fromARGB(255, 255, 253, 253), fontSize: 13),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+  
 }
 class TrianglePainter extends CustomPainter {
   @override
@@ -225,31 +255,38 @@ class TrianglePainter extends CustomPainter {
 }
 
 
-Widget _questionTypeButton(Icon icon, String title, {bool isSelected = false}) {
-  return Container(
-    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
-    decoration: BoxDecoration(
-      color: isSelected ? 
-      const Color.fromARGB(255, 15, 255, 227) : 
-      const Color.fromARGB(255, 41, 40, 40),
-      borderRadius: BorderRadius.circular(10),
-      border: Border.all(color: Colors.teal),
-    ),
-    child: Column(
-      children: [
-        IconButton(onPressed: () {
-          isSelected = true;
-        }, icon: icon ,style: IconButton.styleFrom(
-          hoverColor: Colors.greenAccent,
-          foregroundColor: Colors.white
-          
-        ),
-        ),
-        Text(title,
-        style: TextStyle(color: Colors.white,
-        fontSize: 13),)
-      ],
-    )
-  );
- }
+// Widget _questionTypeButton(Icon icon, String title, {bool isSelected = false}) {
+//   return InkWell(
+//     onTap: () {
+      
+//     },
+//     hoverColor: Colors.grey,
+//     focusColor: Colors.grey,
+//     child: Container(
+//       padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+//       decoration: BoxDecoration(
+//         color: isSelected ? 
+//         const Color.fromARGB(255, 15, 255, 227) : 
+//         const Color.fromARGB(255, 41, 40, 40),
+//         borderRadius: BorderRadius.circular(10),
+//         border: Border.all(color: Colors.teal),
+//       ),
+//       child: Column(
+//         children: [
+//           IconButton(onPressed: () {
+//             isSelected = true;
+//           }, icon: icon ,style: IconButton.styleFrom(
+//             hoverColor: Colors.greenAccent,
+//             foregroundColor: Colors.white
+            
+//           ),
+//           ),
+//           Text(title,
+//           style: TextStyle(color: Colors.white,
+//           fontSize: 13),)
+//         ],
+//       )
+//     ),
+//   );
+//  }
 // color: isSelected ? Colors.white : Colors.teal,
